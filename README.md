@@ -6,6 +6,12 @@ Ceci est un projet d'examen en Java pour créer un jeu de rôle (RPG) en console
 
 Le but du projet est de développer un jeu de rôle (RPG) jouable en console, où le joueur incarne un héros affrontant une infinité d'ennemis générés aléatoirement dans des combats au tour par tour. L’objectif est de vaincre le plus d’ennemis possible avant de mourir. À la fin de la partie, le score (nombre d’ennemis vaincus) est affiché et sauvegardé dans un fichier associé au nom du joueur.
 
+## ❌ Difficultés
+
+- Rendre mon code modulaire et réutilisable
+- Identifier les différentes classes et interfaces
+- Réflexion sur l'utilisation des Design Patterns
+
 ## 📚 Fonctionnalités attendues
 
 ### 1. **Création des entités**
