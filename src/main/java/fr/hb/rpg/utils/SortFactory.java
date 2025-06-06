@@ -8,8 +8,7 @@ import fr.hb.rpg.sorts.SortDePoison;
 
 public class SortFactory {
 
-  public static Sort createSort(String nom) {
-
+  public Sort createSort(String nom) {
     switch (nom) {
       case "Sort de feu":
         return new SortDeFeu();

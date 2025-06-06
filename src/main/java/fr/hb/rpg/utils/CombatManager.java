@@ -6,21 +6,24 @@ import java.util.List;
 import fr.hb.rpg.interfaces.InputOutput;
 import fr.hb.rpg.interfaces.Sort;
 import fr.hb.rpg.interfaces.impl.InputOutputImpl;
+import fr.hb.rpg.personnages.Dragon;
 import fr.hb.rpg.personnages.Ennemi;
 import fr.hb.rpg.personnages.Gobelin;
 import fr.hb.rpg.personnages.Hero;
 import fr.hb.rpg.personnages.Personnage;
+import fr.hb.rpg.personnages.Troll;
 
 public class CombatManager {
 
   private static SortFactory sortFactory = new SortFactory();
   private static InputOutput inputOutput = new InputOutputImpl();
   private static List<Sort> sorts = new ArrayList<>();
+  private static List<Ennemi> ennemis = new ArrayList<>();
 
   public void commencerJeu() {
     inputOutput.afficher("=======================================");
     inputOutput.afficher("||                                   ||");
-    inputOutput.afficher("||       ⚔️  MINI RPG QUEST ⚔️        ||");
+    inputOutput.afficher("||       ⚔️  MINI RPG QUEST ⚔️       ||");
     inputOutput.afficher("||                                   ||");
     inputOutput.afficher("||     Un héros. Des ennemis.        ||");
     inputOutput.afficher("||     Une légende à écrire...       ||");
@@ -29,13 +32,15 @@ public class CombatManager {
     inputOutput.afficher("");
     inputOutput.afficher("");
     createSort();
+    createEnnemis();
     inputOutput.afficherSansRetour("Entrez votre nom héros : ");
     String nom = inputOutput.lireString();
     Hero hero = creerHero(nom);
     inputOutput.afficher(hero.toString());
     inputOutput.afficher("");
-    Gobelin Gobelin = new Gobelin("Gobelin", 100, 70, 30);
-    combat(hero, Gobelin);
+    Ennemi ennemi = randomEnnemi();
+    // Gobelin ennemi = new Gobelin("Gobelin", 100, 70, 30);
+    combat(hero, ennemi);
   }
 
   public static Hero creerHero(String nom) {
@@ -125,6 +130,19 @@ public class CombatManager {
     sorts.add(sortFactory.createSort("Sort de froid"));
     sorts.add(sortFactory.createSort("Sort de poison"));
     sorts.add(sortFactory.createSort("Sort d'éclair"));
+  }
+
+  public static void createEnnemis() {
+    ennemis.clear();
+    ennemis.add(new Gobelin("Gobelin", 100, 70, 30));
+    ennemis.add(new Troll("Troll", 100, 70, 30));
+    ennemis.add(new Dragon("Dragon", 100, 70, 30));
+  }
+
+  public static Ennemi randomEnnemi() {
+    int index = (int) (Math.random() * ennemis.size());
+    inputOutput.afficher("Ennemi : " + ennemis.get(index).getNom());
+    return ennemis.get(index);
   }
 
 }
