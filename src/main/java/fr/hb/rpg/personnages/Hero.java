@@ -10,11 +10,31 @@ public class Hero extends Personnage {
   private PouvoirSpecial pouvoirSpecial = new PouvoirSpecialImpl();
   private Sort sort;
   private int potion;
+  private int xp;
+  private int niveau;
 
-  public Hero(String nom, int pv, int attaque, int defense, int mana, int potion) {
+  public Hero(String nom, int pv, int attaque, int defense, int mana, int potion, int xp, int niveau) {
     super(nom, pv, attaque, defense);
     this.mana = mana;
     this.potion = potion;
+    this.xp = xp;
+    this.niveau = niveau;
+  }
+
+  public int getXp() {
+    return xp;
+  }
+
+  public void setXp(int xp) {
+    this.xp = xp;
+  }
+
+  public int getNiveau() {
+    return niveau;
+  }
+
+  public void setNiveau(int niveau) {
+    this.niveau = niveau;
   }
 
   public int getMana() {
@@ -68,6 +88,24 @@ public class Hero extends Personnage {
     return this.potion;
   }
 
+  public void augmenterXp(int xp) {
+    this.xp += xp;
+  }
+
+  public void augmenterStats(int pv, int attaque, int defense) {
+    this.pv += pv;
+    this.attaque += attaque;
+    this.defense += defense;
+  }
+
+  public boolean augmenterNiveau() {
+    if (niveau < 9) {
+      this.niveau++;
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -93,7 +131,7 @@ public class Hero extends Personnage {
   @Override
   public String toString() {
     return "nom " + getNom() + ",mana " + mana + ", Pv " + getPv() + ", Attaque " + getAttaque()
-        + ", tDefense " + getDefense() + "";
+        + ", Defense " + getDefense() + "";
   }
 
 }

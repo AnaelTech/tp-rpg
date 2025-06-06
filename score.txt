@@ -4,3 +4,6 @@ anael a vaincu 2 ennemis
 Anael a vaincu 1 ennemis
 Anael a vaincu 2 ennemis
 Anael a vaincu 1 ennemis
+Hercule a vaincu 0 ennemis
+Hercule a vaincu 0 ennemis
+Hercule a vaincu 0 ennemis
