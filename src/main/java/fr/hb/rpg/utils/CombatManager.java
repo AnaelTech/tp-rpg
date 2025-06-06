@@ -41,7 +41,7 @@ public class CombatManager {
 
   public static Hero creerHero(String nom) {
     if (nom.isEmpty() || !nom.matches("^[\\p{L}0-9 '\\-]+$")) {
-      inputOutput.afficher("Nom invalide, le nom par défaut 'Héros' sera utilisé.");
+      inputOutput.afficher("\u001B[31mNom invalide, le nom par défaut 'Héros' sera utilisé.\u001B[0m");
       nom = "Héros";
     }
     Hero hero = new Hero(nom, 100, 90, 30, 50, 20);
@@ -72,7 +72,7 @@ public class CombatManager {
                 ennemi.getNom() + " attaque " + hero.getNom() + " ! Il inflige " +
                     degats + " de dégâts.");
           } else {
-            inputOutput.afficher(ennemi.getNom() + " est vaincu.");
+            inputOutput.afficher("\u001B[32m" + ennemi.getNom() + " est vaincu.\u001B[0m");
             ennemi = randomEnnemi();
           }
           break;
@@ -90,7 +90,7 @@ public class CombatManager {
         case 4:
           break;
         default:
-          inputOutput.afficher("Choix non reconnu.");
+          inputOutput.afficher("\u001B[31mChoix non reconnu.\u001B[0m");
           break;
       }
     }
@@ -145,7 +145,7 @@ public class CombatManager {
           val = null;
         }
       } catch (Exception e) {
-        inputOutput.afficher("Entrée invalide. Veuillez saisir un nombre.");
+        inputOutput.afficher("\u001B[31mEntrée invalide. Veuillez saisir un nombre.\u001B[0m");
       }
     } while (val == null);
     return val;
@@ -161,7 +161,7 @@ public class CombatManager {
     int choix = demanderInt("Entrez le numéro du sort :", 1, sorts.size()) - 1;
     Sort sortChoisi = sorts.get(choix);
     if (hero.getMana() < sortChoisi.getMana()) {
-      inputOutput.afficher("Pas assez de mana pour ce sort !");
+      inputOutput.afficher("\u001B[31mPas assez de mana pour ce sort !\u001B[0m");
       return;
     }
     hero.utiliserPouvoir(ennemi, sortChoisi);
