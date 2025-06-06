@@ -80,8 +80,8 @@ Le but du projet est de développer un jeu de rôle (RPG) jouable en console, o�
 
 ### 🧙‍♂️ 1. Système d’expérience (XP) et montée de niveau
 
-- [ ] Le héros gagne de l’XP après chaque combat
-- [ ] À chaque niveau : augmentation de stats (PV, attaque, mana...)
+- [x] Le héros gagne de l’XP après chaque combat
+- [x] À chaque niveau : augmentation de stats (PV, attaque, mana...)
 
 ### ⚔️ 2. Choix de la classe du héros
 
