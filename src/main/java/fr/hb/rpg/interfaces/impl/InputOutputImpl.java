@@ -13,6 +13,11 @@ public class InputOutputImpl implements InputOutput {
   }
 
   @Override
+  public void afficherSansRetour(String message) {
+    System.out.print(message);
+  }
+
+  @Override
   public String lireString() {
     return scanner.nextLine();
   }
