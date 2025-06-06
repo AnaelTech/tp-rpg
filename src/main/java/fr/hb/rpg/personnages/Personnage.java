@@ -7,6 +7,14 @@ abstract class Personnage {
   private int attaque;
   private int defense;
 
+  public Personnage(String nom, int pv, int attaque, int defense) {
+    super();
+    this.nom = nom;
+    this.pv = pv;
+    this.attaque = attaque;
+    this.defense = defense;
+  }
+
   public String getNom() {
     return nom;
   }
