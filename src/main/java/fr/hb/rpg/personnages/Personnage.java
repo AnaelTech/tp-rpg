@@ -1,6 +1,6 @@
 package fr.hb.rpg.personnages;
 
-abstract class Personnage {
+public abstract class Personnage {
 
   private String nom;
   private int pv;
