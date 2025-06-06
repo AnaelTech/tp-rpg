@@ -22,16 +22,7 @@ public class CombatManager {
   private static int compteurPotion = 1;
 
   public void commencerJeu() {
-    inputOutput.afficher("=======================================");
-    inputOutput.afficher("||                                   ||");
-    inputOutput.afficher("||       ⚔️  MINI RPG QUEST ⚔️       ||");
-    inputOutput.afficher("||                                   ||");
-    inputOutput.afficher("||     Un héros. Des ennemis.        ||");
-    inputOutput.afficher("||     Une légende à écrire...       ||");
-    inputOutput.afficher("||                                   ||");
-    inputOutput.afficher("=======================================\n");
-    inputOutput.afficher("");
-    inputOutput.afficher("");
+    voirLogo();
     createSort();
     createEnnemis();
     inputOutput.afficherSansRetour("Entrez votre nom héros : ");
@@ -90,6 +81,19 @@ public class CombatManager {
           break;
       }
     }
+  }
+
+  public static void voirLogo() {
+    inputOutput.afficher("=======================================");
+    inputOutput.afficher("||                                   ||");
+    inputOutput.afficher("||       ⚔️  MINI RPG QUEST ⚔️       ||");
+    inputOutput.afficher("||                                   ||");
+    inputOutput.afficher("||     Un héros. Des ennemis.        ||");
+    inputOutput.afficher("||     Une légende à écrire...       ||");
+    inputOutput.afficher("||                                   ||");
+    inputOutput.afficher("=======================================\n");
+    inputOutput.afficher("");
+    inputOutput.afficher("");
   }
 
   public static int voirMenu() {
