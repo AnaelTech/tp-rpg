@@ -48,16 +48,16 @@ public abstract class Personnage {
   }
 
   public void attaquer(Personnage cible) {
+    cible.prendreDegats(this.attaque);
 
   }
 
   public void prendreDegats(int degats) {
-
+    this.defense -= degats;
   }
 
   public boolean estVivant() {
-
-    return true;
+    return this.defense > 0;
   }
 
   @Override
