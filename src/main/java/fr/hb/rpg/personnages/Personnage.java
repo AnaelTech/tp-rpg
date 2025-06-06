@@ -2,17 +2,36 @@ package fr.hb.rpg.personnages;
 
 public abstract class Personnage {
 
+  protected Long id;
   protected String nom;
   protected int pv;
   protected int attaque;
   protected int defense;
+  protected Long compteurId = 0L;
 
   public Personnage(String nom, int pv, int attaque, int defense) {
     super();
+    this.id = ++compteurId;
     this.nom = nom;
     this.pv = pv;
     this.attaque = attaque;
     this.defense = defense;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Long getCompteurId() {
+    return compteurId;
+  }
+
+  public void setCompteurId(Long compteurId) {
+    this.compteurId = compteurId;
   }
 
   public String getNom() {
@@ -58,7 +77,7 @@ public abstract class Personnage {
   }
 
   public boolean estVivant() {
-    if (this.pv >= 0) {
+    if (this.pv > 0) {
       return true;
     }
     return false;

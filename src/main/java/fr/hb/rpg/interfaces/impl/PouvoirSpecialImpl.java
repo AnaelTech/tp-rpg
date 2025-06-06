@@ -17,6 +17,9 @@ public class PouvoirSpecialImpl implements PouvoirSpecial {
       case "Sort de poison":
         cible.prendreDegats(sort.getDegats());
         break;
+      case "Sort d'éclair":
+        cible.prendreDegats(sort.getDegats());
+        break;
       default:
         throw new IllegalArgumentException("Sort inconnu");
     }

@@ -2,10 +2,13 @@ package fr.hb.rpg.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.hb.rpg.interfaces.InputOutput;
+import fr.hb.rpg.interfaces.SaveScore;
 import fr.hb.rpg.interfaces.Sort;
 import fr.hb.rpg.interfaces.impl.InputOutputImpl;
+import fr.hb.rpg.interfaces.impl.SaveScoreImpl;
 import fr.hb.rpg.personnages.Dragon;
 import fr.hb.rpg.personnages.Ennemi;
 import fr.hb.rpg.personnages.Gobelin;
@@ -21,6 +24,7 @@ public class CombatManager {
   private static List<Ennemi> ennemis = new ArrayList<>();
   private static int compteurPotion = 1;
   private static int compteurEnnemi = 0;
+  private static SaveScore saveScore = new SaveScoreImpl();
 
   public void commencerJeu() {
     voirLogo();
@@ -32,11 +36,14 @@ public class CombatManager {
     inputOutput.afficher(hero.toString());
     inputOutput.afficher("");
     Ennemi ennemi = randomEnnemi();
-    // Gobelin ennemi = new Gobelin("Gobelin", 100, 70, 30);
     combat(hero, ennemi);
   }
 
   public static Hero creerHero(String nom) {
+    if (nom.isEmpty() || !nom.matches("^[\\p{L}0-9 '\\-]+$")) {
+      inputOutput.afficher("Nom invalide, le nom par défaut 'Héros' sera utilisé.");
+      nom = "Héros";
+    }
     Hero hero = new Hero(nom, 100, 90, 30, 50, 20);
     return hero;
   }
@@ -75,6 +82,7 @@ public class CombatManager {
           break;
         case 3:
           if (compteurPotion <= 0) {
+            inputOutput.afficher("Vous n'avez plus de potion !");
             break;
           }
           utilisationPotion(hero);
@@ -82,9 +90,11 @@ public class CombatManager {
         case 4:
           break;
         default:
+          inputOutput.afficher("Choix non reconnu.");
           break;
       }
     }
+    saveScore(hero.getNom(), compteurEnnemi);
   }
 
   public static void voirLogo() {
@@ -116,15 +126,29 @@ public class CombatManager {
     inputOutput.afficher("");
     Integer choix = inputOutput.lireInt();
     return choix;
-    // - choix 1: Attaquer
-    // - choix 2: Utiliser un sort
-    // - choix 3: Utiliser une potion
-    // - choix 4: Revenir au menu
   }
 
   // Attaque
   public static int attaque(Personnage attaquant, Personnage ennemi) {
     return attaquant.attaquer(ennemi);
+  }
+
+  //
+  public static int demanderInt(String message, int min, int max) {
+    Integer val = null;
+    do {
+      try {
+        inputOutput.afficher(message);
+        val = inputOutput.lireInt();
+        if (val < min || val > max) {
+          inputOutput.afficher("Veuillez saisir un nombre entre " + min + " et " + max + ".");
+          val = null;
+        }
+      } catch (Exception e) {
+        inputOutput.afficher("Entrée invalide. Veuillez saisir un nombre.");
+      }
+    } while (val == null);
+    return val;
   }
 
   // Utilise un sort
@@ -134,16 +158,15 @@ public class CombatManager {
       Sort s = sorts.get(i);
       inputOutput.afficher((i + 1) + ". " + s.getNom() + " (Dégâts: " + s.getDegats() + ", Mana: " + s.getMana() + ")");
     }
-    int choix = inputOutput.lireInt() - 1;
-    if (choix >= 0 && choix < sorts.size()) {
-      Sort sortChoisi = sorts.get(choix);
-      hero.utiliserPouvoir(ennemi, sortChoisi);
-      inputOutput
-          .afficher(hero.getNom() + " utilise " + sortChoisi.getNom() + " sur " + ennemi.getNom() + " et inflige "
-              + sortChoisi.getDegats() + " de dégâts.");
-    } else {
-      inputOutput.afficher("Choix invalide.");
+    int choix = demanderInt("Entrez le numéro du sort :", 1, sorts.size()) - 1;
+    Sort sortChoisi = sorts.get(choix);
+    if (hero.getMana() < sortChoisi.getMana()) {
+      inputOutput.afficher("Pas assez de mana pour ce sort !");
+      return;
     }
+    hero.utiliserPouvoir(ennemi, sortChoisi);
+    inputOutput.afficher(hero.getNom() + " utilise " + sortChoisi.getNom() + " sur " + ennemi.getNom() + " et inflige "
+        + sortChoisi.getDegats() + " de dégâts.");
   }
 
   // Utilise une potion
@@ -165,16 +188,45 @@ public class CombatManager {
   // Crée les ennemis
   public static void createEnnemis() {
     ennemis.clear();
-    ennemis.add(new Gobelin("Gobelin", 100, 70, 30));
-    ennemis.add(new Troll("Troll", 100, 70, 30));
-    ennemis.add(new Dragon("Dragon", 100, 70, 30));
+    Random rand = new Random();
+    for (int i = 0; i < 20; i++) {
+      ennemis.add(new Gobelin(
+          "Gobelin",
+          rand.nextInt(41) + 60,
+          rand.nextInt(31) + 40,
+          rand.nextInt(21) + 20));
+      ennemis.add(new Troll(
+          "Troll",
+          rand.nextInt(61) + 90,
+          rand.nextInt(21) + 60,
+          rand.nextInt(21) + 30));
+      ennemis.add(new Dragon(
+          "Dragon",
+          rand.nextInt(51) + 120,
+          rand.nextInt(31) + 80,
+          rand.nextInt(21) + 40));
+    }
   }
 
   // Genere un ennemi au hasard
   public static Ennemi randomEnnemi() {
+    List<Ennemi> ennemisDisponibles = new ArrayList<>();
+    for (Ennemi ennemi : ennemis) {
+      if (ennemi.getPv() > 0) {
+        ennemisDisponibles.add(ennemi);
+      }
+    }
+    if (ennemisDisponibles.isEmpty()) {
+      createEnnemis();
+      ennemisDisponibles.addAll(ennemis);
+    }
     int index = (int) (Math.random() * ennemis.size());
     compteurEnnemi++;
     return ennemis.get(index);
+  }
+
+  public static void saveScore(String playerName, int score) {
+    saveScore.saveScore(playerName, score);
   }
 
 }
