@@ -33,12 +33,12 @@ public class CombatManager {
     Hero hero = creerHero(nom);
     inputOutput.afficher(hero.toString());
     inputOutput.afficher("");
-    Gobelin Gobelin = new Gobelin("Gobelin", 100, 10, 30);
+    Gobelin Gobelin = new Gobelin("Gobelin", 100, 70, 30);
     combat(hero, Gobelin);
   }
 
   public static Hero creerHero(String nom) {
-    Hero hero = new Hero(nom, 100, 10, 30, 50);
+    Hero hero = new Hero(nom, 100, 90, 30, 50);
     return hero;
   }
 
@@ -49,14 +49,14 @@ public class CombatManager {
       Integer choix = voirMenu();
       switch (choix) {
         case 1:
-          int degats = hero.attaquer(ennemi);
+          int degats = attaque(hero, ennemi);
           inputOutput.afficher(
               hero.getNom() + "  attaque " + ennemi.getNom() + " ! Il inflige " + degats + " de dégâts.");
           inputOutput.afficher(" ");
           inputOutput.afficher(ennemi.toString());
 
           if (ennemi.estVivant()) {
-            degats = ennemi.attaquer(hero);
+            degats = attaque(ennemi, hero);
             inputOutput.afficher(
                 ennemi.getNom() + " attaque " + hero.getNom() + " ! Il inflige " +
                     degats + " de dégâts.");
@@ -101,12 +101,10 @@ public class CombatManager {
     // - choix 4: Revenir au menu
   }
 
-  // public static void attaque(Personnage ennemi) {
-  // // ICI ils attaquent et j'affiche les degats de chaque personnages
-  // ennemi.attaquer();
-  // // et je fais le calcul de la consommation de mana
-  // }
-  //
+  public static int attaque(Personnage attaquant, Personnage ennemi) {
+    return attaquant.attaquer(ennemi);
+  }
+
   public static void utilisationSort(Hero hero, Ennemi ennemi) {
     // ICI ils utilisent un sort et j'affiche le sort et le degat
     hero.utiliserPouvoir(ennemi);
