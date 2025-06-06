@@ -53,6 +53,7 @@ public class MenuService {
           val = null;
         }
       } catch (Exception e) {
+        // TODO: Gérer cette affichage avec une exception
         io.afficher("\u001B[31mEntrée invalide. Veuillez saisir un nombre.\u001B[0m");
       }
     } while (val == null);
@@ -68,6 +69,7 @@ public class MenuService {
     int choix = demanderInt("Entrez le numéro du sort :", 1, sorts.size()) - 1;
     Sort sortChoisi = sorts.get(choix);
     if (hero.getMana() < sortChoisi.getMana()) {
+      // TODO: Gérer cette affichage avec une exception
       io.afficher("\u001B[31mPas assez de mana pour ce sort !\u001B[0m");
       return;
     }

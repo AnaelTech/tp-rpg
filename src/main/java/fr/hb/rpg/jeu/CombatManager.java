@@ -72,6 +72,7 @@ public class CombatManager {
         case 3:
           if (compteurPotion <= 0) {
             io.afficher("Vous n'avez plus de potion !");
+            // TODO: Gérer cette affichage avec une exception
             break;
           }
           utilisationPotion(hero);
