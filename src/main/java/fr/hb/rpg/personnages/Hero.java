@@ -61,8 +61,8 @@ public class Hero extends Personnage {
 
   @Override
   public String toString() {
-    return "Hero [mana=" + mana + ", getNom()=" + getNom() + ", getPv()=" + getPv() + ", getAttaque()=" + getAttaque()
-        + ", getDefense()=" + getDefense() + "]";
+    return "nom " + getNom() + ",mana " + mana + ", Pv " + getPv() + ", Attaque " + getAttaque()
+        + ", tDefense " + getDefense() + "";
   }
 
 }
