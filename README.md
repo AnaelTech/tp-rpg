@@ -174,8 +174,22 @@ Le but du projet est de développer un jeu de rôle (RPG) jouable en console, o�
    javac -d bin src/main/java/fr/hb/rpg/*.java
    ```
 3. Lance le jeu :
+
    ```bash
    java -cp bin fr.hb.rpg.App
+   ```
+
+   Ou utilisation avec Maven :
+
+4. Compile le projet :
+
+```bash
+ mvn clean package
+```
+
+3. Lance le jeu :
+   ```bash
+   mvn exec:java
    ```
 
 ## ▶️ Utilisation
