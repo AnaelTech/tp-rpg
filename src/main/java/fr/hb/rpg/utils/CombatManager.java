@@ -1,5 +1,8 @@
 package fr.hb.rpg.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.hb.rpg.interfaces.InputOutput;
 import fr.hb.rpg.interfaces.Sort;
 import fr.hb.rpg.interfaces.impl.InputOutputImpl;
@@ -7,15 +10,12 @@ import fr.hb.rpg.personnages.Ennemi;
 import fr.hb.rpg.personnages.Gobelin;
 import fr.hb.rpg.personnages.Hero;
 import fr.hb.rpg.personnages.Personnage;
-import fr.hb.rpg.sorts.SortDEclair;
 
 public class CombatManager {
 
+  private static SortFactory sortFactory = new SortFactory();
   private static InputOutput inputOutput = new InputOutputImpl();
-
-  private int compteurAttaque = 0;
-  private int compteurSort = 0;
-  private int compteurPotion = 0;
+  private static List<Sort> sorts = new ArrayList<>();
 
   public void commencerJeu() {
     inputOutput.afficher("=======================================");
@@ -28,6 +28,7 @@ public class CombatManager {
     inputOutput.afficher("=======================================\n");
     inputOutput.afficher("");
     inputOutput.afficher("");
+    createSort();
     inputOutput.afficherSansRetour("Entrez votre nom héros : ");
     String nom = inputOutput.lireString();
     Hero hero = creerHero(nom);
@@ -44,7 +45,6 @@ public class CombatManager {
 
   public static void combat(Hero hero, Ennemi ennemi) {
     // ICI une boucle while
-    Sort sort = new SortDEclair();
     while (hero.estVivant() && ennemi.estVivant()) {
       Integer choix = voirMenu();
       switch (choix) {
@@ -52,23 +52,17 @@ public class CombatManager {
           int degats = attaque(hero, ennemi);
           inputOutput.afficher(
               hero.getNom() + "  attaque " + ennemi.getNom() + " ! Il inflige " + degats + " de dégâts.");
-          inputOutput.afficher(" ");
-          inputOutput.afficher(ennemi.toString());
-
           if (ennemi.estVivant()) {
             degats = attaque(ennemi, hero);
             inputOutput.afficher(
                 ennemi.getNom() + " attaque " + hero.getNom() + " ! Il inflige " +
                     degats + " de dégâts.");
-            inputOutput.afficher(hero.toString());
           } else {
             inputOutput.afficher(ennemi.getNom() + " est vaincu.");
           }
           break;
         case 2:
-          /* utilisationSort(hero, ennemi); */
-          inputOutput.afficher(hero.toString());
-          inputOutput.afficher(hero.getNom() + " utilise un sort" + sort.getNom());
+          utilisationSort(hero, ennemi);
           inputOutput.afficher(ennemi.toString());
 
           break;
@@ -106,13 +100,31 @@ public class CombatManager {
   }
 
   public static void utilisationSort(Hero hero, Ennemi ennemi) {
-    // ICI ils utilisent un sort et j'affiche le sort et le degat
-    hero.utiliserPouvoir(ennemi);
-
+    inputOutput.afficher("Quel sort voulez-vous utiliser ?");
+    for (int i = 0; i < sorts.size(); i++) {
+      Sort s = sorts.get(i);
+      inputOutput.afficher((i + 1) + ". " + s.getNom() + " (Dégâts: " + s.getDegats() + ", Mana: " + s.getMana() + ")");
+    }
+    int choix = inputOutput.lireInt() - 1;
+    if (choix >= 0 && choix < sorts.size()) {
+      Sort sortChoisi = sorts.get(choix);
+      hero.utiliserPouvoir(ennemi, sortChoisi);
+      inputOutput.afficher(hero.getNom() + " utilise " + sortChoisi.getNom() + " !");
+    } else {
+      inputOutput.afficher("Choix invalide.");
+    }
   }
 
   public static void utilisationPotion() {
     // ICI ils utilisent une potion et j'affiche le sort et le degat
+  }
+
+  public static void createSort() {
+    sorts.clear();
+    sorts.add(sortFactory.createSort("Sort de feu"));
+    sorts.add(sortFactory.createSort("Sort de froid"));
+    sorts.add(sortFactory.createSort("Sort de poison"));
+    sorts.add(sortFactory.createSort("Sort d'éclair"));
   }
 
 }

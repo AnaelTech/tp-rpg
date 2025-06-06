@@ -1,11 +1,14 @@
 package fr.hb.rpg.personnages;
 
 import fr.hb.rpg.interfaces.PouvoirSpecial;
+import fr.hb.rpg.interfaces.Sort;
+import fr.hb.rpg.interfaces.impl.PouvoirSpecialImpl;
 
 public class Hero extends Personnage {
 
   private int mana;
-  private PouvoirSpecial pouvoirSpecial;
+  private PouvoirSpecial pouvoirSpecial = new PouvoirSpecialImpl();
+  private Sort sort;
 
   public Hero(String nom, int pv, int attaque, int defense, int mana) {
     super(nom, pv, attaque, defense);
@@ -20,8 +23,17 @@ public class Hero extends Personnage {
     this.mana = mana;
   }
 
-  public void utiliserPouvoir(Personnage cible) {
-    pouvoirSpecial.utiliserPouvoir(cible);
+  public void utiliserPouvoir(Personnage cible, Sort sort) {
+    if (this.pouvoirSpecial == null) {
+      this.pouvoirSpecial = new PouvoirSpecialImpl();
+    }
+
+    if (this.mana >= sort.getMana()) {
+      this.pouvoirSpecial.utiliserPouvoir(cible, sort);
+      this.mana -= sort.getMana();
+    } else {
+      System.out.println("Pas assez de mana pour utiliser ce sort !");
+    }
   }
 
   @Override

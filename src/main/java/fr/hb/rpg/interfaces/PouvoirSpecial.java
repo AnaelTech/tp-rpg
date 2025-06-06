@@ -4,6 +4,6 @@ import fr.hb.rpg.personnages.Personnage;
 
 public interface PouvoirSpecial {
 
-  void utiliserPouvoir(Personnage cible);
+  void utiliserPouvoir(Personnage cible, Sort sort);
 
 }
