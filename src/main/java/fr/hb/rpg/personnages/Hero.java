@@ -32,6 +32,7 @@ public class Hero extends Personnage {
 
     if (this.mana >= sort.getMana()) {
       this.pouvoirSpecial.utiliserPouvoir(cible, sort);
+      cible.setPv(cible.getPv() - sort.getDegats());
       this.mana -= sort.getMana();
     } else {
       System.out.println("Pas assez de mana pour utiliser ce sort !");

@@ -8,7 +8,7 @@ public class Dragon extends Ennemi {
 
   @Override
   public String toString() {
-    return "Dragon []";
+    return "Dragon [nom=" + getNom() + ", pv=" + getPv() + ", attaque=" + getAttaque() + ", defense=" + getDefense();
   }
 
 }

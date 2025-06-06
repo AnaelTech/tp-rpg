@@ -20,6 +20,7 @@ public class CombatManager {
   private static List<Sort> sorts = new ArrayList<>();
   private static List<Ennemi> ennemis = new ArrayList<>();
   private static int compteurPotion = 1;
+  private static int compteurEnnemi = 0;
 
   public void commencerJeu() {
     voirLogo();
@@ -43,6 +44,9 @@ public class CombatManager {
   public static void combat(Hero hero, Ennemi ennemi) {
     // ICI une boucle while
     while (hero.estVivant()) {
+      inputOutput.afficher("Ennemi n " + compteurEnnemi + " : " + ennemi.getNom());
+      inputOutput.afficher("=======================================");
+      inputOutput.afficher(" ");
       inputOutput.afficher(
           hero.getNom() + "-" + " PV " + hero.getPv() + " | Mana " + hero.getMana() + " | Potions " + compteurPotion);
       inputOutput.afficher("");
@@ -134,7 +138,9 @@ public class CombatManager {
     if (choix >= 0 && choix < sorts.size()) {
       Sort sortChoisi = sorts.get(choix);
       hero.utiliserPouvoir(ennemi, sortChoisi);
-      inputOutput.afficher(hero.getNom() + " utilise " + sortChoisi.getNom() + " !");
+      inputOutput
+          .afficher(hero.getNom() + " utilise " + sortChoisi.getNom() + " sur " + ennemi.getNom() + " et inflige "
+              + sortChoisi.getDegats() + " de dégâts.");
     } else {
       inputOutput.afficher("Choix invalide.");
     }
@@ -167,6 +173,7 @@ public class CombatManager {
   // Genere un ennemi au hasard
   public static Ennemi randomEnnemi() {
     int index = (int) (Math.random() * ennemis.size());
+    compteurEnnemi++;
     return ennemis.get(index);
   }
 

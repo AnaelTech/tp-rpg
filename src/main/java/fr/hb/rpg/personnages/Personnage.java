@@ -58,7 +58,7 @@ public abstract class Personnage {
   }
 
   public boolean estVivant() {
-    if (this.pv > 0) {
+    if (this.pv >= 0) {
       return true;
     }
     return false;

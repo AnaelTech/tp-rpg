@@ -8,7 +8,7 @@ public class Troll extends Ennemi {
 
   @Override
   public String toString() {
-    return "Troll []";
+    return "Troll [nom=" + getNom() + ", pv=" + getPv() + ", attaque=" + getAttaque() + ", defense=" + getDefense();
   }
 
 }
