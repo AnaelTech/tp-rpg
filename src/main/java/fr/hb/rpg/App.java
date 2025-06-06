@@ -9,6 +9,6 @@ import fr.hb.rpg.utils.CombatManager;
 public class App {
   public static void main(String[] args) {
     CombatManager combatManager = new CombatManager();
-    combatManager.startGame();
+    combatManager.commencerJeu();
   }
 }

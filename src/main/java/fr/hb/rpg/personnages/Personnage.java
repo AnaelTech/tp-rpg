@@ -2,10 +2,10 @@ package fr.hb.rpg.personnages;
 
 public abstract class Personnage {
 
-  private String nom;
-  private int pv;
-  private int attaque;
-  private int defense;
+  protected String nom;
+  protected int pv;
+  protected int attaque;
+  protected int defense;
 
   public Personnage(String nom, int pv, int attaque, int defense) {
     super();
@@ -47,17 +47,21 @@ public abstract class Personnage {
     this.defense = defense;
   }
 
-  public void attaquer(Personnage cible) {
-    cible.prendreDegats(this.attaque);
-
+  public int attaquer(Personnage cible) {
+    return cible.prendreDegats(this.attaque);
   }
 
-  public void prendreDegats(int degats) {
-    this.defense -= degats;
+  public int prendreDegats(int degats) {
+    int degatsReels = Math.max(0, degats - this.defense);
+    this.pv -= degatsReels;
+    return degatsReels;
   }
 
   public boolean estVivant() {
-    return this.defense > 0;
+    if (this.pv > 0) {
+      return true;
+    }
+    return false;
   }
 
   @Override

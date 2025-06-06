@@ -1,28 +1,15 @@
 package fr.hb.rpg.personnages;
 
+import fr.hb.rpg.interfaces.PouvoirSpecial;
+
 public class Hero extends Personnage {
 
   private int mana;
+  private PouvoirSpecial pouvoirSpecial;
 
   public Hero(String nom, int pv, int attaque, int defense, int mana) {
     super(nom, pv, attaque, defense);
     this.mana = mana;
-  }
-
-  @Override
-  public void attaquer(Personnage cible) {
-
-  }
-
-  @Override
-  public void prendreDegats(int degats) {
-
-  }
-
-  @Override
-  public boolean estVivant() {
-
-    return true;
   }
 
   public int getMana() {
@@ -34,7 +21,7 @@ public class Hero extends Personnage {
   }
 
   public void utiliserPouvoir(Personnage cible) {
-
+    pouvoirSpecial.utiliserPouvoir(cible);
   }
 
   @Override

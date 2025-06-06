@@ -8,6 +8,7 @@ public class Gobelin extends Ennemi {
 
   @Override
   public String toString() {
-    return "Gobelin []";
+    return "Gobelin [nom=" + getNom() + ", pv=" + getPv() + ", attaque=" + getAttaque() + ", defense=" + getDefense();
+
   }
 }
