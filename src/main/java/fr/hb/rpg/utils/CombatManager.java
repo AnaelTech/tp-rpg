@@ -19,6 +19,7 @@ public class CombatManager {
   private static InputOutput inputOutput = new InputOutputImpl();
   private static List<Sort> sorts = new ArrayList<>();
   private static List<Ennemi> ennemis = new ArrayList<>();
+  private static int compteurPotion = 1;
 
   public void commencerJeu() {
     inputOutput.afficher("=======================================");
@@ -44,13 +45,19 @@ public class CombatManager {
   }
 
   public static Hero creerHero(String nom) {
-    Hero hero = new Hero(nom, 100, 90, 30, 50);
+    Hero hero = new Hero(nom, 100, 90, 30, 50, 20);
     return hero;
   }
 
   public static void combat(Hero hero, Ennemi ennemi) {
     // ICI une boucle while
     while (hero.estVivant() && ennemi.estVivant()) {
+      inputOutput.afficher(
+          hero.getNom() + "-" + " PV " + hero.getPv() + " | Mana " + hero.getMana() + " | Potions " + compteurPotion);
+      inputOutput.afficher("");
+      inputOutput.afficher(
+          ennemi.getNom() + "-" + " PV " + ennemi.getPv());
+
       Integer choix = voirMenu();
       switch (choix) {
         case 1:
@@ -69,10 +76,12 @@ public class CombatManager {
         case 2:
           utilisationSort(hero, ennemi);
           inputOutput.afficher(ennemi.toString());
-
           break;
         case 3:
-          utilisationPotion();
+          if (compteurPotion <= 0) {
+            break;
+          }
+          utilisationPotion(hero);
           break;
         case 4:
           break;
@@ -87,7 +96,11 @@ public class CombatManager {
     inputOutput.afficher("||                                   ||");
     inputOutput.afficher("||   1. Attaquer                     ||");
     inputOutput.afficher("||   2. Utiliser un sort             ||");
-    inputOutput.afficher("||   3. Utiliser une potion          ||");
+    if (compteurPotion > 0) {
+      inputOutput.afficher("||   3. Utiliser une potion          ||");
+    } else {
+      inputOutput.afficher("||    Plus de potion disponible      ||");
+    }
     inputOutput.afficher("||   4. Revenir au menu              ||");
     inputOutput.afficher("||                                   ||");
     inputOutput.afficher("=======================================\n");
@@ -100,10 +113,12 @@ public class CombatManager {
     // - choix 4: Revenir au menu
   }
 
+  // Attaque
   public static int attaque(Personnage attaquant, Personnage ennemi) {
     return attaquant.attaquer(ennemi);
   }
 
+  // Utilise un sort
   public static void utilisationSort(Hero hero, Ennemi ennemi) {
     inputOutput.afficher("Quel sort voulez-vous utiliser ?");
     for (int i = 0; i < sorts.size(); i++) {
@@ -120,10 +135,14 @@ public class CombatManager {
     }
   }
 
-  public static void utilisationPotion() {
-    // ICI ils utilisent une potion et j'affiche le sort et le degat
+  // Utilise une potion
+  public static void utilisationPotion(Hero hero) {
+    hero.usePotion();
+    compteurPotion--;
+    inputOutput.afficher(hero.getNom() + " utilise une potion ! Il a " + hero.getPotion() + " de potions restantes.");
   }
 
+  // Crée les sorts
   public static void createSort() {
     sorts.clear();
     sorts.add(sortFactory.createSort("Sort de feu"));
@@ -132,6 +151,7 @@ public class CombatManager {
     sorts.add(sortFactory.createSort("Sort d'éclair"));
   }
 
+  // Crée les ennemis
   public static void createEnnemis() {
     ennemis.clear();
     ennemis.add(new Gobelin("Gobelin", 100, 70, 30));
@@ -139,9 +159,9 @@ public class CombatManager {
     ennemis.add(new Dragon("Dragon", 100, 70, 30));
   }
 
+  // Genere un ennemi au hasard
   public static Ennemi randomEnnemi() {
     int index = (int) (Math.random() * ennemis.size());
-    inputOutput.afficher("Ennemi : " + ennemis.get(index).getNom());
     return ennemis.get(index);
   }
 

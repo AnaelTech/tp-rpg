@@ -9,10 +9,12 @@ public class Hero extends Personnage {
   private int mana;
   private PouvoirSpecial pouvoirSpecial = new PouvoirSpecialImpl();
   private Sort sort;
+  private int potion;
 
-  public Hero(String nom, int pv, int attaque, int defense, int mana) {
+  public Hero(String nom, int pv, int attaque, int defense, int mana, int potion) {
     super(nom, pv, attaque, defense);
     this.mana = mana;
+    this.potion = potion;
   }
 
   public int getMana() {
@@ -34,6 +36,35 @@ public class Hero extends Personnage {
     } else {
       System.out.println("Pas assez de mana pour utiliser ce sort !");
     }
+  }
+
+  public PouvoirSpecial getPouvoirSpecial() {
+    return pouvoirSpecial;
+  }
+
+  public void setPouvoirSpecial(PouvoirSpecial pouvoirSpecial) {
+    this.pouvoirSpecial = pouvoirSpecial;
+  }
+
+  public Sort getSort() {
+    return sort;
+  }
+
+  public void setSort(Sort sort) {
+    this.sort = sort;
+  }
+
+  public int getPotion() {
+    return potion;
+  }
+
+  public void setPotion(int potion) {
+    this.potion = potion;
+  }
+
+  public int usePotion() {
+    this.pv += this.potion;
+    return this.potion;
   }
 
   @Override
