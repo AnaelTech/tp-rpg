@@ -183,11 +183,11 @@ Le but du projet est de développer un jeu de rôle (RPG) jouable en console, o�
 
 4. Compile le projet :
 
-```bash
- mvn clean package
-```
+   ```bash
+   mvn clean install
+   ```
 
-3. Lance le jeu :
+5. Lance le jeu :
    ```bash
    mvn exec:java
    ```
