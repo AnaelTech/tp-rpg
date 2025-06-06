@@ -51,7 +51,7 @@ public class CombatManager {
 
   public static void combat(Hero hero, Ennemi ennemi) {
     // ICI une boucle while
-    while (hero.estVivant() && ennemi.estVivant()) {
+    while (hero.estVivant()) {
       inputOutput.afficher(
           hero.getNom() + "-" + " PV " + hero.getPv() + " | Mana " + hero.getMana() + " | Potions " + compteurPotion);
       inputOutput.afficher("");
@@ -71,6 +71,7 @@ public class CombatManager {
                     degats + " de dégâts.");
           } else {
             inputOutput.afficher(ennemi.getNom() + " est vaincu.");
+            ennemi = randomEnnemi();
           }
           break;
         case 2:
