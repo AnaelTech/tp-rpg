@@ -64,6 +64,10 @@ public class CombatManager {
         case 2:
           utilisationSort(hero, ennemi);
           io.afficher(ennemi.toString());
+          if (ennemi.estVivant()) {
+            degats = attaque(ennemi, hero);
+            io.afficher(ennemi.getNom() + " attaque " + hero.getNom() + " ! Il inflige " + degats + " de dégâts.");
+          }
           break;
         case 3:
           if (compteurPotion <= 0) {
