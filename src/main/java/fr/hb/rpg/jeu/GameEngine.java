@@ -35,7 +35,10 @@ public class GameEngine {
 
     io.afficherSansRetour("Entrez votre nom héros : ");
     String nom = io.lireString();
-    Hero hero = menuService.creerHero(nom);
+    io.afficher("");
+    io.afficher("Choississez une classe : ");
+    int classe = menuService.choixClasse();
+    Hero hero = menuService.creerHero(nom, classe);
     io.afficher(hero.toString());
     io.afficher("");
 

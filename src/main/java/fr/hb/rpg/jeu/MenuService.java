@@ -8,6 +8,9 @@ import fr.hb.rpg.interfaces.InputOutput;
 import fr.hb.rpg.interfaces.Sort;
 import fr.hb.rpg.personnages.Ennemi;
 import fr.hb.rpg.personnages.Hero;
+import fr.hb.rpg.personnages.classes.Guerrier;
+import fr.hb.rpg.personnages.classes.Mage;
+import fr.hb.rpg.personnages.classes.Voleur;
 
 public class MenuService {
 
@@ -21,17 +24,36 @@ public class MenuService {
     this.io = io;
   }
 
-  public Hero creerHero(String nom) {
+  public Hero creerHero(String nom, int choixClasse) {
     if (nom.isEmpty() || !nom.matches("^[\\p{L}0-9 '\\-]+$")) {
       io.afficher("\u001B[31mNom invalide, le nom par défaut 'Héros' sera utilisé.\u001B[0m");
       nom = "Héros";
     }
-    Hero hero = new Hero(nom, 100, 90, 30, 50, 20, 0, 0);
-    return hero;
+
+    return switch (choixClasse) {
+      case 1 -> new Guerrier(nom);
+      case 2 -> new Mage(nom);
+      case 3 -> new Voleur(nom);
+      default -> {
+        io.afficher("\u001B[31mChoix de classe invalide. Le Guerrier sera utilisé par défaut.\u001B[0m");
+        yield new Guerrier(nom);
+      }
+    };
+  }
+
+  public int choixClasse() {
+    io.afficher("");
+    io.afficher("||  1. Guerrier                   ||");
+    io.afficher("||  2. Mage                       ||");
+    io.afficher("||  3. Voleur                     ||");
+    io.afficher("");
+    io.afficherSansRetour("Votre choix : ");
+    return io.lireInt();
   }
 
   public int voirMenu(int compteurPotion) {
     // ICI je vais afficher le menu pour les différents choix
+    io.afficher("");
     io.afficher("||                                   ||");
     io.afficher("||   1. Attaquer                     ||");
     io.afficher("||   2. Utiliser un sort             ||");

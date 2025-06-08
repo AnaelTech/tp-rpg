@@ -4,7 +4,7 @@ import fr.hb.rpg.interfaces.PouvoirSpecial;
 import fr.hb.rpg.interfaces.Sort;
 import fr.hb.rpg.interfaces.impl.PouvoirSpecialImpl;
 
-public class Hero extends Personnage {
+public abstract class Hero extends Personnage {
 
   private int mana;
   private PouvoirSpecial pouvoirSpecial = new PouvoirSpecialImpl();
@@ -20,6 +20,8 @@ public class Hero extends Personnage {
     this.xp = xp;
     this.niveau = niveau;
   }
+
+  public abstract String getClasse();
 
   public int getXp() {
     return xp;
