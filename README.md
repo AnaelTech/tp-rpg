@@ -91,7 +91,7 @@ Le but du projet est de développer un jeu de rôle (RPG) jouable en console, o�
 
 ### ⚔️ 2. Choix de la classe du héros
 
-- [ ] Avant de commencer, le joueur choisit une classe (Guerrier, Mage, Voleur)
+- [x] Avant de commencer, le joueur choisit une classe (Guerrier, Mage, Voleur)
 
 ### 🎒 3. Inventaire complet
 
