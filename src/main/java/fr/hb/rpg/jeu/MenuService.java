@@ -2,14 +2,20 @@ package fr.hb.rpg.jeu;
 
 import java.util.List;
 
+import fr.hb.rpg.exceptions.EntreeInvalideException;
+import fr.hb.rpg.exceptions.PasAssezDeManaException;
 import fr.hb.rpg.interfaces.InputOutput;
-import fr.hb.rpg.personnages.Hero;
-import fr.hb.rpg.personnages.Ennemi;
 import fr.hb.rpg.interfaces.Sort;
+import fr.hb.rpg.personnages.Ennemi;
+import fr.hb.rpg.personnages.Hero;
 
 public class MenuService {
 
   private final InputOutput io;
+  private final PasAssezDeManaException pasAssezDeManaException = new PasAssezDeManaException(
+      "\u001B[31Pas assez de mana pour ce sort !\u001B[0m");
+  private final EntreeInvalideException entreeInvalideException = new EntreeInvalideException(
+      "\u001B[31mEntrée invalide. Veuillez saisir un nombre.\u001B[0m");
 
   public MenuService(InputOutput io) {
     this.io = io;
@@ -53,8 +59,7 @@ public class MenuService {
           val = null;
         }
       } catch (Exception e) {
-        // TODO: Gérer cette affichage avec une exception
-        io.afficher("\u001B[31mEntrée invalide. Veuillez saisir un nombre.\u001B[0m");
+        io.afficher(entreeInvalideException.getMessage());
       }
     } while (val == null);
     return val;
@@ -69,8 +74,7 @@ public class MenuService {
     int choix = demanderInt("Entrez le numéro du sort :", 1, sorts.size()) - 1;
     Sort sortChoisi = sorts.get(choix);
     if (hero.getMana() < sortChoisi.getMana()) {
-      // TODO: Gérer cette affichage avec une exception
-      io.afficher("\u001B[31mPas assez de mana pour ce sort !\u001B[0m");
+      io.afficher(pasAssezDeManaException.getMessage());
       return;
     }
     hero.utiliserPouvoir(ennemi, sortChoisi);

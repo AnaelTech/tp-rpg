@@ -1,5 +1,6 @@
 package fr.hb.rpg.jeu;
 
+import fr.hb.rpg.exceptions.PlusDePotionException;
 import fr.hb.rpg.interfaces.InputOutput;
 import fr.hb.rpg.interfaces.SaveScore;
 import fr.hb.rpg.interfaces.Sort;
@@ -18,7 +19,8 @@ public class CombatManager {
   private final SortFactory sortFactory;
   private final EnnemiFactory ennemiFactory;
   private final SaveScore saveScore;
-
+  private final PlusDePotionException plusDePotionException = new PlusDePotionException(
+      "Vous n'avez plus de potion !");
   private int compteurPotion = 1;
   private int compteurEnnemi = 0;
 
@@ -71,8 +73,7 @@ public class CombatManager {
           break;
         case 3:
           if (compteurPotion <= 0) {
-            io.afficher("Vous n'avez plus de potion !");
-            // TODO: Gérer cette affichage avec une exception
+            io.afficher(plusDePotionException.getMessage());
             break;
           }
           utilisationPotion(hero);
