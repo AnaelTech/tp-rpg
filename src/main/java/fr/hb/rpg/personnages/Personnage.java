@@ -71,7 +71,7 @@ public abstract class Personnage {
   }
 
   public int prendreDegats(int degats) {
-    int degatsReels = Math.max(0, degats - this.defense);
+    int degatsReels = Math.max(1, degats - this.defense / 2);
     this.pv -= degatsReels;
     return degatsReels;
   }

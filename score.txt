@@ -9,3 +9,5 @@ Hercule a vaincu 0 ennemis
 Hercule a vaincu 0 ennemis
 Jean a vaincu 0 ennemis
 Jean a vaincu 0 ennemis
+Joe a vaincu 0 ennemis
+Paul a vaincu 1 ennemis

@@ -69,6 +69,15 @@ public class CombatManager {
           if (ennemi.estVivant()) {
             degats = attaque(ennemi, hero);
             io.afficher(ennemi.getNom() + " attaque " + hero.getNom() + " ! Il inflige " + degats + " de dégâts.");
+          } else {
+            io.afficher("\u001B[32m" + ennemi.getNom() + " est vaincu.\u001B[0m");
+            compteurEnnemi++;
+            augmenterXp(hero, ennemi);
+            if (hero.augmenterNiveau()) {
+              augmenterNiveau(hero);
+              augmenterStats(hero);
+            }
+            ennemi = ennemiFactory.randomEnnemi();
           }
           break;
         case 3:

@@ -17,19 +17,19 @@ public class EnnemiFactory {
     for (int i = 0; i < 20; i++) {
       ennemis.add(new Gobelin(
           "Gobelin",
-          rand.nextInt(41) + 60,
-          rand.nextInt(10) + 15,
-          rand.nextInt(5) + 10));
+          rand.nextInt(21) + 40,
+          rand.nextInt(6) + 5,
+          rand.nextInt(5) + 3));
       ennemis.add(new Troll(
           "Troll",
-          rand.nextInt(61) + 90,
-          rand.nextInt(21) + 60,
-          rand.nextInt(21) + 30));
+          rand.nextInt(31) + 60,
+          rand.nextInt(21) + 20,
+          rand.nextInt(11) + 10));
       ennemis.add(new Dragon(
           "Dragon",
-          rand.nextInt(51) + 120,
-          rand.nextInt(31) + 80,
-          rand.nextInt(21) + 40));
+          rand.nextInt(21) + 100,
+          rand.nextInt(21) + 50,
+          rand.nextInt(11) + 30));
     }
   }
 
