@@ -8,9 +8,22 @@ import fr.hb.rpg.personnages.Troll;
 import fr.hb.rpg.personnages.Dragon;
 import fr.hb.rpg.personnages.Ennemi;
 
+/**
+ * La classe EnnemiFactory permet de générer et de gérer une liste d'ennemis
+ * pour le jeu RPG.
+ * Elle fournit des méthodes pour créer des ennemis de différents types
+ * (Gobelin, Troll, Dragon)
+ * avec des caractéristiques aléatoires, et pour sélectionner un ennemi
+ * aléatoire disponible.
+ */
 public class EnnemiFactory {
   private final List<Ennemi> ennemis = new ArrayList<>();
 
+  /**
+   * Crée une nouvelle liste d'ennemis composée de Gobelins, Trolls et Dragons,
+   * chacun avec des points de vie, d'attaque et de défense générés aléatoirement.
+   * La liste précédente est effacée avant la création.
+   */
   public void creerEnnemis() {
     ennemis.clear();
     Random rand = new Random();
@@ -33,6 +46,12 @@ public class EnnemiFactory {
     }
   }
 
+  /**
+   * Retourne un ennemi aléatoire parmi ceux qui ont encore des points de vie.
+   * Si aucun ennemi n'est disponible, la liste est régénérée.
+   *
+   * @return un ennemi disponible aléatoire
+   */
   public Ennemi randomEnnemi() {
     List<Ennemi> disponibles = new ArrayList<>();
     for (Ennemi e : ennemis) {
