@@ -1,5 +1,8 @@
 package fr.hb.rpg.personnages;
 
+import java.util.List;
+
+import fr.hb.rpg.equipement.Loot;
 import fr.hb.rpg.interfaces.PouvoirSpecial;
 import fr.hb.rpg.interfaces.Sort;
 import fr.hb.rpg.interfaces.impl.PouvoirSpecialImpl;
@@ -20,6 +23,7 @@ public abstract class Hero extends Personnage {
   private int potion;
   private int xp;
   private int niveau;
+  private List<Loot> loot;
 
   /**
    * Constructeur de la classe Hero
@@ -220,6 +224,68 @@ public abstract class Hero extends Personnage {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Récupère la liste des loots du héros
+   *
+   * @return
+   */
+  public List<Loot> getLoot() {
+    return loot;
+  }
+
+  /**
+   * Affecte la liste des loots du héros
+   *
+   * @param loot
+   */
+  public void setLoot(List<Loot> loot) {
+    this.loot = loot;
+  }
+
+  /**
+   * Supprime un loot du héros
+   *
+   * @param loot
+   *
+   */
+  public void removeLoot(Loot loot) {
+    if (this.loot != null) {
+      this.loot.remove(loot);
+    }
+  }
+
+  /**
+   * Ajoute un loot au héros
+   *
+   * @param loot
+   *
+   */
+  public void addLoot(Loot loot) {
+    if (this.loot != null) {
+      this.loot.add(loot);
+    }
+  }
+
+  public void augmentePv(int pv) {
+    this.pv += pv;
+  }
+
+  public void augmenteAttack(int attack) {
+    this.attaque += attack;
+  }
+
+  public void augmenteDefense(int defense) {
+    this.defense += defense;
+  }
+
+  // public void augmenteVitesse(int vitesse) {
+  // this.vitesse += vitesse;
+  // }
+
+  public void augmenteMana(int mana) {
+    this.mana += mana;
   }
 
   /**

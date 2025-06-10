@@ -1,5 +1,7 @@
 package fr.hb.rpg.equipement;
 
+import fr.hb.rpg.personnages.Hero;
+
 /**
  * Classe Loot
  * 
@@ -118,6 +120,43 @@ public abstract class Loot {
    */
   public void setStatType(StatType statType) {
     this.statType = statType;
+  }
+
+  /**
+   * Utilise le loot
+   *
+   */
+  public void useLoot(Hero player) {
+
+    switch (statType) {
+      case PV:
+        player.augmentePv(20);
+        System.out.println("Vous utilisez un " + nom + " et gagnez 20 PV !");
+        break;
+      case ATTAQUE:
+        player.augmenteAttack(5);
+        System.out.println("Vous équipez un " + nom + " (+5 attaque) !");
+        break;
+      case DEFENSE:
+        player.augmenteDefense(3);
+        System.out.println("Vous équipez un " + nom + " (+3 défense) !");
+        break;
+      // case VITESSE:
+      // player.augmenteVitesse(5);
+      // System.out.println("Vous équipez un " + nom + " (+5 vitesse) !");
+      // break;
+      case MANA:
+        player.augmenteMana(5);
+        System.out.println("Vous équipez un " + nom + " (+5 mana) !");
+        break;
+      default:
+        System.out.println("Stat inconnu.");
+    }
+  }
+
+  @Override
+  public String toString() {
+    return "Loot [nom=" + nom + ", rareté=" + rareté + ", statType=" + statType + ", chance=" + chance + "]";
   }
 
 }
