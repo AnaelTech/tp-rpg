@@ -27,7 +27,7 @@ public class CombatManager {
   private final EnnemiFactory ennemiFactory;
   private final SaveScore saveScore;
   private final PlusDePotionException plusDePotionException = new PlusDePotionException(
-      "Vous n'avez plus de potion !");
+      "\u001B[31mVous n'avez plus de potion !\u001B[0m");
   private int compteurPotion = 1;
   private int compteurEnnemi = 0;
 
@@ -88,7 +88,6 @@ public class CombatManager {
           break;
         case 2:
           utilisationSort(hero, ennemi);
-          io.afficher(ennemi.toString());
           if (ennemi.estVivant()) {
             degats = attaque(ennemi, hero);
             io.afficher(ennemi.getNom() + " attaque " + hero.getNom() + " ! Il inflige " + degats + " de dégâts.");
@@ -111,9 +110,10 @@ public class CombatManager {
           utilisationPotion(hero);
           break;
         case 4:
-          io.afficher("Retour au menu principal.");
+          io.afficher("Fin du jeux");
           saveScore.saveScore(hero.getNom(), compteurEnnemi);
-          return;
+          System.exit(0);
+          break;
         default:
           io.afficher("\u001B[31mChoix non reconnu.\u001B[0m");
           break;
@@ -234,4 +234,7 @@ public class CombatManager {
     }
   }
 
+  private void dropLoot(Hero hero) {
+
+  }
 }
