@@ -4,7 +4,9 @@ import fr.hb.rpg.interfaces.impl.InputOutputImpl;
 import fr.hb.rpg.jeu.GameEngine;
 
 /**
- * Hello world!
+ * Lance le jeu
+ * 
+ * @author Anael
  *
  */
 public class App {
