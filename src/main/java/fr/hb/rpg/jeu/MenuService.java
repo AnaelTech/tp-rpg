@@ -12,6 +12,13 @@ import fr.hb.rpg.personnages.classes.Guerrier;
 import fr.hb.rpg.personnages.classes.Mage;
 import fr.hb.rpg.personnages.classes.Voleur;
 
+/**
+ * Classe MenuService
+ * Gestionnaire de menu
+ * 
+ * @author Anael
+ *
+ */
 public class MenuService {
 
   private final InputOutput io;
@@ -20,10 +27,22 @@ public class MenuService {
   private final EntreeInvalideException entreeInvalideException = new EntreeInvalideException(
       "\u001B[31mEntrée invalide. Veuillez saisir un nombre.\u001B[0m");
 
+  /**
+   * Constructeur de la classe MenuService
+   * 
+   * @param io objet de type InputOutput
+   */
   public MenuService(InputOutput io) {
     this.io = io;
   }
 
+  /**
+   * Crée un héros
+   * 
+   * @param nom         nom du héros
+   * @param choixClasse choix de classe
+   * @return héros
+   */
   public Hero creerHero(String nom, int choixClasse) {
     if (nom.isEmpty() || !nom.matches("^[\\p{L}0-9 '\\-]+$")) {
       io.afficher("\u001B[31mNom invalide, le nom par défaut 'Héros' sera utilisé.\u001B[0m");
@@ -41,6 +60,12 @@ public class MenuService {
     };
   }
 
+  /**
+   * Menu du choix de classe
+   * retourne le choix de classe
+   * 
+   * @return choix de classe
+   */
   public int choixClasse() {
     io.afficher("");
     io.afficher("||  1. Guerrier                   ||");
@@ -51,6 +76,13 @@ public class MenuService {
     return io.lireInt();
   }
 
+  /**
+   * Menu du choix du personnage
+   * retourne le choix du menu
+   * 
+   * @param compteurPotion compteur de potion
+   * @return choix du menu
+   */
   public int voirMenu(int compteurPotion) {
     // ICI je vais afficher le menu pour les différents choix
     io.afficher("");
@@ -70,6 +102,14 @@ public class MenuService {
     return choix;
   }
 
+  /**
+   * Demande un nombre entre un interval
+   * 
+   * @param message message à afficher
+   * @param min     minimum
+   * @param max     maximum
+   * @return nombre entre min et max
+   */
   public int demanderInt(String message, int min, int max) {
     Integer val = null;
     do {
@@ -87,6 +127,14 @@ public class MenuService {
     return val;
   }
 
+  /**
+   * Utilise un sort
+   * et affiche le résultat
+   *
+   * @param hero   héros
+   * @param ennemi ennemi
+   * @param sorts  liste des sorts
+   */
   public void utiliserSort(Hero hero, Ennemi ennemi, List<Sort> sorts) {
     io.afficher("Quel sort voulez-vous utiliser ?");
     for (int i = 0; i < sorts.size(); i++) {

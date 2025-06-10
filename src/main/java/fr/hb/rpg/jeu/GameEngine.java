@@ -9,6 +9,16 @@ import fr.hb.rpg.personnages.Hero;
 import fr.hb.rpg.utils.EnnemiFactory;
 import fr.hb.rpg.utils.SortFactory;
 
+/**
+ * Classe GameEngine
+ * Il gère le lancement du jeu, l'affichage du logo, la création des sorts et
+ * des ennemis,
+ * la création du héros et la gestion du combat
+ * Ce sera celui qui sera appelé par le main
+ *
+ * @author Anael
+ *
+ */
 public class GameEngine {
   private final InputOutput io;
   private final CombatManager combatManager;
@@ -18,6 +28,11 @@ public class GameEngine {
   private final SortFactory sortFactory;
   private final SaveScore saveScore;
 
+  /**
+   * Constructeur de la classe GameEngine
+   * 
+   * @param io objet de type InputOutput
+   */
   public GameEngine(InputOutput io) {
     this.io = io;
     this.voirLogo = new VoirLogoImpl();
@@ -28,6 +43,13 @@ public class GameEngine {
     this.combatManager = new CombatManager(io, menuService, sortFactory, ennemiFactory, saveScore);
   }
 
+  /**
+   * Lance le jeu
+   * Affiche le logo, crée les sorts et les ennemis,
+   * Définit le héros et le fait combattre
+   *
+   *
+   */
   public void lancer() {
     voirLogo.voirLogo();
     sortFactory.createSort();

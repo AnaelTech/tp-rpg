@@ -12,6 +12,13 @@ import fr.hb.rpg.utils.EnnemiFactory;
 
 import java.util.List;
 
+/**
+ * Classe CombatManager
+ * Gestionnaire de combat il gère le combat entre un héros et un ennemi
+ * 
+ * @author Anael
+ *
+ */
 public class CombatManager {
 
   private final InputOutput io;
@@ -24,6 +31,15 @@ public class CombatManager {
   private int compteurPotion = 1;
   private int compteurEnnemi = 0;
 
+  /**
+   * Constructeur de la classe CombatManager
+   * 
+   * @param io            objet de type InputOutput
+   * @param menuService   objet de type MenuService
+   * @param sortFactory   objet de type SortFactory
+   * @param ennemiFactory objet de type EnnemiFactory
+   * @param saveScore     objet de type SaveScore
+   */
   public CombatManager(InputOutput io, MenuService menuService, SortFactory sortFactory, EnnemiFactory ennemiFactory,
       SaveScore saveScore) {
     this.io = io;
@@ -33,6 +49,13 @@ public class CombatManager {
     this.saveScore = saveScore;
   }
 
+  /**
+   * Méthode qui gère le combat entre un héros et un ennemi
+   * Il utilise les méthodes attaque, utilisationSort et utilisationPotion
+   * Il affiche les résultats du combat
+   * 
+   * @param hero héros
+   */
   public void combattre(Hero hero) {
     Ennemi ennemi = ennemiFactory.randomEnnemi();
     while (hero.estVivant()) {
@@ -99,17 +122,37 @@ public class CombatManager {
     saveScore.saveScore(hero.getNom(), compteurEnnemi);
   }
 
+  /**
+   * Utilise la methode attaquer de la classe Personnage
+   *
+   * @param attaquant attaquant
+   * @param ennemi    ennemi
+   * @return nombre de dégats qu'un personnage inflige à un ennemi
+   */
   // Attaque
   private int attaque(Personnage attaquant, Personnage ennemi) {
     return attaquant.attaquer(ennemi);
   }
 
+  /**
+   * Utilise la methode utiliseSort de la classe MenuService
+   * Liste les sorts disponibles et permet au joueur de choisir un sort à utiliser
+   *
+   * @param hero   héros
+   * @param ennemi ennemi
+   */
   // Utilise un sort
   private void utilisationSort(Hero hero, Ennemi ennemi) {
     List<Sort> sorts = sortFactory.getSorts();
     menuService.utiliserSort(hero, ennemi, sorts);
   }
 
+  /**
+   * Utilise la methode usePotion de la classe Hero
+   * Permet au joueur de choisir un sort à utiliser
+   *
+   * @param hero héros
+   */
   // Utilise une potion
   private void utilisationPotion(Hero hero) {
     hero.usePotion();
@@ -117,6 +160,13 @@ public class CombatManager {
     io.afficher(hero.getNom() + " utilise une potion ! Il a " + hero.getPotion() + " potions restantes.");
   }
 
+  /**
+   * Gestion des XP
+   * Permet au héros de gagner des XP en fonction de l'ennemi qu'il va vaincre
+   *
+   * @param hero   héros
+   * @param ennemi ennemi
+   */
   // Gestion des XP
   private void augmenterXp(Hero hero, Ennemi ennemi) {
     switch (ennemi.getNom()) {
@@ -135,6 +185,12 @@ public class CombatManager {
     }
   }
 
+  /**
+   * Gestion des stats et du niveau
+   * Permet au héros de gagner des stats en fonction de son niveau
+   *
+   * @param hero héros
+   */
   // Gestion des stats et du niveau
   private void augmenterNiveau(Hero hero) {
     hero.augmenterNiveau();
@@ -147,6 +203,12 @@ public class CombatManager {
     io.afficher("\u001B[33m" + hero.toString() + " ! Stats améliorées.\u001B[0m");
   }
 
+  /**
+   * Gestion des Stats en fonction de l'XP
+   * Permet au héros de gagner des stats en fonction de son XP
+   *
+   * @param hero héros
+   */
   // Gestion des Stats en fonction de l'XP
   private void augmenterStats(Hero hero) {
     int xp = hero.getXp();
