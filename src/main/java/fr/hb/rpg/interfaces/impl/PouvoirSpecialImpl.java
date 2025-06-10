@@ -4,7 +4,23 @@ import fr.hb.rpg.interfaces.PouvoirSpecial;
 import fr.hb.rpg.interfaces.Sort;
 import fr.hb.rpg.personnages.Personnage;
 
+/**
+ * Classe PouvoirSpecialImpl
+ * Implémentation de la classe PouvoirSpecial
+ * 
+ * @author Anael
+ *
+ */
 public class PouvoirSpecialImpl implements PouvoirSpecial {
+  /**
+   * Surcharge de la méthode utilisePouvoir de la classe PouvoirSpecial
+   * Si le sort est de feu, de froid, de poison ou d'éclair, le cible prend des
+   * dégats
+   * Si le sort est inconnu, une exception est lancée
+   *
+   * @param cible cible
+   * @param sort  sort
+   */
   @Override
   public void utiliserPouvoir(Personnage cible, Sort sort) {
     switch (sort.getNom()) {
