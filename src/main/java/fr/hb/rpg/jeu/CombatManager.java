@@ -1,5 +1,6 @@
 package fr.hb.rpg.jeu;
 
+import fr.hb.rpg.equipement.Loot;
 import fr.hb.rpg.exceptions.PlusDePotionException;
 import fr.hb.rpg.interfaces.InputOutput;
 import fr.hb.rpg.interfaces.SaveScore;
@@ -30,6 +31,7 @@ public class CombatManager {
       "\u001B[31mVous n'avez plus de potion !\u001B[0m");
   private int compteurPotion = 1;
   private int compteurEnnemi = 0;
+  private List<Loot> loots;
 
   /**
    * Constructeur de la classe CombatManager
@@ -234,7 +236,9 @@ public class CombatManager {
     }
   }
 
-  private void dropLoot(Hero hero) {
-
+  private void addLoot(Hero hero) {
+    for (Loot loot : loots) {
+      hero.addLoot(loot);
+    }
   }
 }
