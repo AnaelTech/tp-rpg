@@ -1,7 +1,6 @@
 package fr.hb.rpg.jeu;
 
 import fr.hb.rpg.interfaces.InputOutput;
-import fr.hb.rpg.interfaces.impl.InputOutputImpl;
 //import fr.hb.rpg.personnages.Inventaire;
 import fr.hb.rpg.personnages.Hero;
 

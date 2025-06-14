@@ -56,7 +56,7 @@ public class GameEngine {
   public void lancer() {
     voirLogo.voirLogo();
     sortFactory.createSort();
-    // lootFactory.createLoot();
+    lootFactory.createLoot();
     ennemiFactory.creerEnnemis();
 
     io.afficherSansRetour("Entrez votre nom héros : ");
